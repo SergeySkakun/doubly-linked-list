@@ -86,15 +86,6 @@ class LinkedList {
     }
 
     clear() {
-        /*this.tail();
-        do {
-            let timePrev = this.list.prev;
-            delete this.list;
-            this.list = timePrev;
-        }
-        while (this.list.prev != null);
-        this.list.data = null;*/
-
         this.list = new Node();
         this.length = 0;
         return this.list;
@@ -108,21 +99,24 @@ class LinkedList {
 
     reverse() {
         this.tail();
-        do {
-            let timeVar = this.list.prev;
-            this.list.prev = this.list.next;
-            this.list.next = timeVar;
+
+        for (let i = 0; i <= this.length; i++) {
+            
         }
-        while (this.list.next != null);
         return this.list;
     }
 
     indexOf(data) {
         this.head();
+        let i = 0;
         while (this.list.data != data) {
+            i++;
+            if(this.list.next == null) {
+                return -1;
+            }
             this.list = this.list.next;
         }
-        return this.list;
+        return i;
     }
 }
 
