@@ -1,27 +1,130 @@
 const Node = require('./node');
 
 class LinkedList {
-    constructor() {}
+    constructor() {
+        this.list = new Node();
+        this.length = 0;
+    }
 
-    append(data) {}
+    append (data) {
+        if (this.isEmpty()) { // Если текущий объект пустой, то он новый.
+            this.list.data = data;
+            this.length++;
+            return this.list;
+        }
 
-    head() {}
+        this.list.next = new Node (this.list, data, null);
+        this.length++;
+        return this._tail;
+    }
 
-    tail() {}
+    head() {
+        if (this.isEmpty()) {
+            return null;
+        }
+        while (this.list.prev != null) {
+            this.list = this.list.prev;
+        }
+        return this.list.data;
+    }
 
-    at(index) {}
+    get _head() {
+        this.head();
+        return this.list;
+    }
 
-    insertAt(index, data) {}
+    tail() {
+        if (this.isEmpty()) {
+            return null;
+        }
+        while (this.list.next != null) {
+            this.list = this.list.next;
+        }
+        return this.list.data;
+    }
 
-    isEmpty() {}
+    get _tail() {
+        this.tail();
+        return this.list;
+    }
 
-    clear() {}
+    at(index) {
+        this._head;
 
-    deleteAt(index) {}
+        if (index <= 0) {
+            return this.head();
+        }
 
-    reverse() {}
+        do {
+            this.list = this.list.next;
+            index--;
+        }
+        while (index > 0);
 
-    indexOf(data) {}
+        return this.list.data;
+    }
+
+    insertAt(index, data) {
+        this.at(index-1);
+
+        if (this.list.prev != null) {
+            this.list.prev = new Node (null, data, this.list);
+            this.length++;
+            return this.list.prev;
+        }
+
+                this.list.next = new Node (this.list, data, this.list.next.next);
+        this.length++;
+        return this.list;
+    }
+
+    isEmpty() {
+        if (this.list.data == null) {
+            return true;
+        }
+        return false;
+    }
+
+    clear() {
+        /*this.tail();
+        do {
+            let timePrev = this.list.prev;
+            delete this.list;
+            this.list = timePrev;
+        }
+        while (this.list.prev != null);
+        this.list.data = null;*/
+
+        this.list = new Node();
+        this.length = 0;
+        return this.list;
+    }
+
+    deleteAt(index) {
+        this.at(index);
+        this.list.prev.next = this.list.next;
+        this.list.next.prev = this.list.prev;
+    }
+
+    reverse() {
+        this.tail();
+        do {
+            let timeVar = this.list.prev;
+            this.list.prev = this.list.next;
+            this.list.next = timeVar;
+        }
+        while (this.list.next != null);
+        return this.list;
+    }
+
+    indexOf(data) {
+        this.head();
+        while (this.list.data != data) {
+            this.list = this.list.next;
+        }
+        return this.list;
+    }
 }
+
 
 module.exports = LinkedList;
