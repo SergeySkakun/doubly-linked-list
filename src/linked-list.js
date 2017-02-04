@@ -2,7 +2,7 @@ const Node = require('./node');
 
 class LinkedList {
     constructor() {
-        this.list = new Node();
+        this.list = new Node(null, null, null);
         this.length = 0;
     }
 
@@ -10,7 +10,7 @@ class LinkedList {
         if (this.isEmpty()) { // Если текущий объект пустой, то он новый.
             this.list.data = data;
             this.length++;
-            return this.list;
+            return this;
         }
         this.list.next = new Node (this.list, data, null);
         this.length++;
@@ -45,7 +45,7 @@ class LinkedList {
 
     get _tail() {
         this.tail();
-        return this;
+        return this.list;
     }
 
     at(index) {
@@ -99,7 +99,7 @@ class LinkedList {
     }
 
     clear() {
-        this.list = new Node();
+        this.list = new Node(null, null, null);
         this.length = 0;
         return this;
     }
@@ -109,7 +109,7 @@ class LinkedList {
             if (this.length == 1) {
                 this.length = 0;
                 this.clear();
-                return this.list;
+                return this;
             }
             this.list.next.prev = null;
             this.list = this.list.next;
