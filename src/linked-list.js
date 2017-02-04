@@ -12,10 +12,10 @@ class LinkedList {
             this.length++;
             return this.list;
         }
-
         this.list.next = new Node (this.list, data, null);
         this.length++;
-        return this._tail;
+        this.list = this.list.next;
+        return this.list;
     }
 
     head() {
@@ -65,15 +65,28 @@ class LinkedList {
     }
 
     insertAt(index, data) {
-        this.at(index-1);
+        //this.at(index-1);
+        if (this.isEmpty()) {
+            this.at(0);
+            return this.list;
+        }
 
-        if (this.list.prev != null) {
+        if (index == 0) {
+            this.at(index);
             this.list.prev = new Node (null, data, this.list);
             this.length++;
             return this.list.prev;
         }
 
-                this.list.next = new Node (this.list, data, this.list.next.next);
+        if (index >= this.length) {
+            this.at(index);
+            this.list.next = new Node (this.list, data, null);
+            this.length++;
+            return this.list.next
+        }
+
+        this.at(index-1);
+        this.list.next = new Node (this.list, data, this.list.next.next);
         this.length++;
         return this.list;
     }
@@ -92,16 +105,46 @@ class LinkedList {
     }
 
     deleteAt(index) {
+        if (index == 0) {
+            if (this.length == 1) {
+                this.length = 0;
+                this.clear();
+                return this.list;
+            }
+            this.list.next.prev = null;
+            this.list = this.list.next;
+            return this.list;
+        }
         this.at(index);
         this.list.prev.next = this.list.next;
         this.list.next.prev = this.list.prev;
+        return this.list;
     }
 
     reverse() {
-        this.tail();
+        this.head();
 
-        for (let i = 0; i <= this.length; i++) {
-            
+        let array = [];
+        for (let i = 0; i < this.length; i++) {
+            array.push(this.list.data);
+
+            if (this.list.next != null){
+                this.list = this.list.next;
+            }
+            else break;
+        }
+
+        array = array.reverse();
+
+        this.head();
+        for (let i = 0; i < this.length; i++) {
+            this.list.data = array[i];
+            if (this.list.next != null){
+                this.list = this.list.next;
+            }
+            else {
+                break;
+            }
         }
         return this.list;
     }
