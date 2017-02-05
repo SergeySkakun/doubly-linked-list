@@ -51,7 +51,7 @@ class LinkedList {
     at(index) {
         this._head;
 
-        if (index <= 0) {
+        if (index == 0) {
             return this.head();
         }
 
@@ -65,7 +65,6 @@ class LinkedList {
     }
 
     insertAt(index, data) {
-        //this.at(index-1);
         if (this.isEmpty()) {
             this.at(0);
             return this.list;
