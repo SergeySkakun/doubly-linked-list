@@ -85,7 +85,7 @@ class LinkedList {
         }
 
         this.at(index-1);
-        this.list.next = new Node (this.list, data, this.list.next.next);
+        this.list.next = new Node (this.list, data, this.list.next);
         this.length++;
         return this.list;
     }
